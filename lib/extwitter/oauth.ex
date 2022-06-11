@@ -31,16 +31,20 @@ defmodule ExTwitter.OAuth do
   def oauth_get(url, params, consumer_key, consumer_secret, access_token, access_token_secret, options) do
     signed_params = get_signed_params(
       "get", url, params, consumer_key, consumer_secret, access_token, access_token_secret)
-    encoded_params = URI.encode_query(signed_params)
-    request = {to_charlist(url <> "?" <> encoded_params), []}
+    {header, req_params} = OAuther.header(signed_params)
+    header = header |> Tuple.to_list() |> Enum.map(&to_charlist/1) |> List.to_tuple()
+    encoded_params = URI.encode_query(req_params)
+    request = {to_charlist(url <> "?" <> encoded_params), [header]}
     send_httpc_request(:get, request, options)
   end
 
   def oauth_post(url, params, consumer_key, consumer_secret, access_token, access_token_secret, options) do
     signed_params = get_signed_params(
-      "post", url, params, consumer_key, consumer_secret, access_token, access_token_secret)
-    encoded_params = URI.encode_query(signed_params)
-    request = {to_charlist(url), [], 'application/x-www-form-urlencoded', encoded_params}
+      "post", url, [], consumer_key, consumer_secret, access_token, access_token_secret)
+    {header, req_params} = OAuther.header(signed_params)
+    header = header |> Tuple.to_list() |> Enum.map(&to_charlist/1) |> List.to_tuple()
+    json_params = params |> Map.new() |> ExTwitter.JSON.encode!()
+    request = {to_charlist(url), [header], 'application/json', json_params}
     send_httpc_request(:post, request, options)
   end
 

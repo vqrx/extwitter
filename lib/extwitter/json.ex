@@ -7,6 +7,13 @@ defmodule ExTwitter.JSON do
   """
 
   @doc """
+  Encode Elixir objects into JSON strings.
+  """
+  def encode!(json, opts \\ []) do
+    json_library().encode!(json, opts)
+  end
+
+  @doc """
   Decode JSON string into Elixir objects.
   """
   def decode!(json) do
