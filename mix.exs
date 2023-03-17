@@ -2,13 +2,13 @@ defmodule ExTwitter.Mixfile do
   use Mix.Project
 
   @source_url "https://github.com/parroty/extwitter"
-  @version "0.13.0"
+  @version "0.14.0"
 
   def project do
     [
       app: :extwitter,
       version: @version,
-      elixir: ">= 1.4.0",
+      elixir: ">= 1.9.0",
       deps: deps(),
       docs: docs(),
       package: package(),
@@ -33,7 +33,7 @@ defmodule ExTwitter.Mixfile do
   def application do
     [
       mod: {ExTwitter, []},
-      applications: [:inets, :ssl, :crypto, :logger]
+      applications: [:inets, :ssl, :crypto, :logger, :oauther]
     ]
   end
 
@@ -42,7 +42,7 @@ defmodule ExTwitter.Mixfile do
       {:oauther, "~> 1.3"},
       {:jason, "~> 1.1"},
       {:exvcr, "~> 0.8", only: :test},
-      {:excoveralls, "~> 0.13", only: :test},
+      {:excoveralls, "~> 0.14", only: :test},
       {:meck, "~> 0.8.13", only: [:dev, :test]},
       {:mock, "~> 0.2", only: [:dev, :test]},
       {:ex_doc, ">= 0.0.0", only: [:dev, :docs], runtime: false},

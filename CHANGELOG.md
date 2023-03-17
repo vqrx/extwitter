@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v0.14.0 - 2022-10-28
+
+#### Changes
+- Resolve compile warnings -> Adjust Config to not warn (#156).
+  - Bump minimum elixir version to 1.9
+
+## v0.13.1 - 2022-09-08
+
+#### Changes
+- Fix error on elixir v1.14.
+  - Fix derive missing field issue (#150).
+
 ## v0.13.0 - 2021-12-28
 
 #### Changes
